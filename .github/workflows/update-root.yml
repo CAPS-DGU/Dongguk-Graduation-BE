@@ -1,0 +1,16 @@
+name: Notify Root Repo
+
+on:
+  push:
+    branches: [ "main" ] # main에 머지/푸시될 때 실행
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.SUBMODULE_TOKEN }} # PAT
+          repository: CAPS-DGU/DonggukGraduation # 루트 레포 주소
+          event-type: submodule-update # 루트 레포가 알아들을 신호 이름
